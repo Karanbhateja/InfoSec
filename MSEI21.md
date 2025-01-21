@@ -84,7 +84,7 @@ sudo iptables -A INPUT -p tcp --dport 80 -m limit --limit 25/minute --limit-burs
 sudo iptables -A INPUT -p tcp --dport 80 -j DROP
 ```
 
-## Question 1: Applying OS Filters
+## Question 4: Applying OS Filters
 
 ### a) Block the USB
 Open Command Prompt with Administrator privileges. Disable USB ports:
@@ -121,7 +121,7 @@ gpedit.msc
 Navigate to User Configuration > Administrative Templates > Windows Components > File Explorer.
 Enable Prevent access to drives from My Computer and specify the drives to restrict.
 
-## Question 2: Configure Windows Client as a SAMBA Server
+## Question 5: Configure Windows Client as a SAMBA Server
 
 ### Install Samba on the Windows machine:
 Download and install Samba for Windows (e.g., via Cygwin).
@@ -143,7 +143,7 @@ net start smbd
 net start nmbd
 ```
 
-## Question 3: OS Hardening Techniques
+## Question 6: OS Hardening Techniques
 
 ### a) Create a user with limited privileges
 Open Command Prompt with Administrator privileges.
@@ -180,7 +180,7 @@ Use the tasklist command:
 tasklist
 ```
 
-## Question 4: Identify Network Details Using Command Line
+## Question 7: Identify Network Details Using Command Line
 
 ### a) Save your IP details in a file
 Use the ipconfig command:
