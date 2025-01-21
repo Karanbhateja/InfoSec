@@ -83,3 +83,141 @@ sudo iptables -A INPUT -s <attacker-ip> -j DROP
 sudo iptables -A INPUT -p tcp --dport 80 -m limit --limit 25/minute --limit-burst 100 -j ACCEPT
 sudo iptables -A INPUT -p tcp --dport 80 -j DROP
 ```
+
+## Question 1: Applying OS Filters
+
+### a) Block the USB
+Open Command Prompt with Administrator privileges. Disable USB ports:
+```bash
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\USBSTOR" /v Start /t REG_DWORD /d 4 /f
+```
+
+To re-enable USB ports, use:
+```bash
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\USBSTOR" /v Start /t REG_DWORD /d 3 /f
+```
+
+### b) Prevent user from changing network settings
+Open Command Prompt with Administrator privileges. Apply Group Policy changes:
+```bash
+gpedit.msc
+```
+Navigate to User Configuration > Administrative Templates > Network > Network Connections.
+Enable the setting Prohibit access to properties of a LAN connection.
+
+### c) Prevent user from accessing Windows Registry
+Open Command Prompt with Administrator privileges. Use Group Policy Editor:
+```bash
+gpedit.msc
+```
+Navigate to User Configuration > Administrative Templates > System.
+Enable the setting Prevent access to registry editing tools.
+
+### d) Prevent user from accessing folders or drives
+Open Command Prompt with Administrator privileges. Use Group Policy:
+```bash
+gpedit.msc
+```
+Navigate to User Configuration > Administrative Templates > Windows Components > File Explorer.
+Enable Prevent access to drives from My Computer and specify the drives to restrict.
+
+## Question 2: Configure Windows Client as a SAMBA Server
+
+### Install Samba on the Windows machine:
+Download and install Samba for Windows (e.g., via Cygwin).
+
+### Configure Samba:
+Edit the smb.conf file (in the Samba installation folder):
+```ini
+[shared_folder]
+path = C:\shared_folder
+read only = no
+browsable = yes
+guest ok = yes
+```
+
+### Start Samba Service:
+Use cygwin terminal to start the service:
+```bash
+net start smbd
+net start nmbd
+```
+
+## Question 3: OS Hardening Techniques
+
+### a) Create a user with limited privileges
+Open Command Prompt with Administrator privileges.
+Create a new user:
+```bash
+net user limiteduser password123 /add
+```
+
+Add the user to the Users group (limited privileges):
+```bash
+net localgroup Users limiteduser /add
+```
+
+### b) Change the user password from the command line
+Use the net user command:
+```bash
+net user limiteduser newpassword123
+```
+
+### c) Hide files and folders using Command Prompt
+Use the attrib command:
+```bash
+attrib +h +s "C:\path\to\folder"
+```
+
+To unhide:
+```bash
+attrib -h -s "C:\path\to\folder"
+```
+
+### d) List all running tasks using Command Prompt
+Use the tasklist command:
+```bash
+tasklist
+```
+
+## Question 4: Identify Network Details Using Command Line
+
+### a) Save your IP details in a file
+Use the ipconfig command:
+```bash
+ipconfig > ip_details.txt
+```
+
+### b) Find files opened by network users
+Use the openfiles command (Administrator required):
+```bash
+openfiles /query
+```
+
+### c) Monitor port activity
+Use the netstat command:
+```bash
+netstat -an
+```
+
+To save results:
+```bash
+netstat -an > port_activity.txt
+```
+
+### d) Find DNS of any domain
+Use the nslookup command:
+```bash
+nslookup example.com
+```
+
+# Summary of Commands
+- Block USB: reg add ...
+- Prevent registry/network changes: Use gpedit.msc
+- Create user: net user
+- Change password: net user username password
+- Hide files: attrib
+- List tasks: tasklist
+- Save IP: ipconfig > file
+- Monitor ports: netstat
+- Find DNS: nslookup
