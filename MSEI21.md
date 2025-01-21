@@ -14,10 +14,10 @@ Note: HTTP POST often transmits data like usernames and passwords in plain text.
 Using nmap Command (No Code Needed):
 
 Install nmap:
-``` sudo apt install nmap ```
+```bash sudo apt install nmap ```
 
 Scan your LAN:
-``` sudo nmap -sn 192.168.1.0/24 ```
+```nash sudo nmap -sn 192.168.1.0/24 ```
 (Replace 192.168.1.0/24 with your subnet.)
 
 To get detailed information, use:
