@@ -10,6 +10,7 @@ Capture traffic, identify HTTP POST packets, and inspect their payload for crede
 
 Note: HTTP POST often transmits data like usernames and passwords in plain text. Ensure ethical and authorized use.
 
+
 ## Question 2: Define the topology used in LAN and scan the network with details like IP, MAC Address, Host name, Username, and OS details of at least 10 machines, and generate the report.
 Using nmap Command (No Code Needed):
 
@@ -36,6 +37,7 @@ Save the output:
 sudo nmap -A -T4 192.168.1.0/24 > network_report.txt
 ```
 (The results will be stored in network_report.txt.)
+
 
 ## Question 3: Attempt a DoS/DDoS attack on the target computer and display the list of IPs with access details. Prevent the DDoS attack using any firewall.
 
